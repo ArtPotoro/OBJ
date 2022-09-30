@@ -32,11 +32,11 @@ class Conversation
      * @param null $id
      * @return Conversation
      */
-    public static function getConversation($id=null)
+    public static function getConversation($customer_id=null)
     {
         $pdo = DB::getPDO();
-        $stm = $pdo->prepare("SELECT * FROM contact_information WHERE id=?");
-        $stm->execute([$id]);
+        $stm = $pdo->prepare("SELECT * FROM contact_information WHERE customer_id=?");
+        $stm->execute([$customer_id]);
         $c = $stm->fetch(PDO::FETCH_ASSOC);
         $conversation = new Conversation($c['customer_id'], $c['date'], $c['conversation'],$c['id']);
         return $conversation;

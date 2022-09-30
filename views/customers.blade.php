@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,10 @@
             <div class="card mt-5">
                 <div class="card-header"><b>Customer: {{ $title }}</b></div>
                 <div class="card-body">
+                    @foreach($user->getNavigation() as $item)
+                        <a href="{{$item['link']}}">{{$item['name']}}</a>
+                    @endforeach
+                    <a href="login.php?action=logout">Log Out</a>
                     <form action="" method="POST">
                         <a href="" class="btn  btn-success float-end">New Customer</a>
                         <table class="table">
@@ -45,7 +50,9 @@
                                     <td>{{ $customer->company_id }}</td>
                                     <td>{{ $customer->getCompany($customer->company_id)->company_name }}</td>
                                     <td>{{ $customer->getCon($customer->id)->conversation }}</td>
+                                    @if ($user->canEdit())
                                     <td><a class="btn btn-info" href="?delete_id={{ $customer->id }}">Istrinti</a> </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

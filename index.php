@@ -1,13 +1,26 @@
 <?php
+session_start();
 include_once "DB.php";
 include_once "Company.php";
 include_once "Customer.php";
 include_once "Conversation.php";
 include_once "lib/BladeOne.php";
+include_once "Admin.php";
+include_once "SuperAdmin.php";
 use eftec\bladeone\BladeOne;
+
+
+$user=Admin::auth();
+
+
+
+
 
 //$blade=new BladeOne();
 //$blade->run("companies", ["title"=>"customers"]);
+
+
+
 
 $companys=Company::getCompanys();
 if (isset($_GET['delete_id'])){
@@ -15,7 +28,7 @@ if (isset($_GET['delete_id'])){
     $company->delete();
 }
 $blade=new BladeOne();
-echo $blade->run("companys", ["title"=>"Naujas", "companys"=>$companys]);
+echo $blade->run("companys", ["title"=>"Naujas", "companys"=>$companys, "user"=>$user]);
 
 
 
@@ -25,7 +38,7 @@ if (isset($_GET['delete_id'])){
     $customer->delete();
 }
 $blade=new BladeOne();
-echo $blade->run("customers", ["title"=>"Naujas", "customers"=>$customers]);
+echo $blade->run("customers", ["title"=>"Naujas", "customers"=>$customers, "user"=>$user]);
 
 
 
@@ -35,7 +48,7 @@ if (isset($_GET['delete_id'])){
     $conversation->delete();
 }
 $blade=new BladeOne();
-echo $blade->run("conversations", ["title"=>"Naujas", "conversations"=>$conversations]);
+echo $blade->run("conversations", ["title"=>"Naujas", "conversations"=>$conversations, "user"=>$user]);
 
 //
 //$company=Company::insertCompany('Vardas', 'adresas', 'varkodas', 'companijosVardas', 'telefonas', 'epastas');

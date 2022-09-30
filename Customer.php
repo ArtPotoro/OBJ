@@ -12,7 +12,7 @@ class Customer
     public $company_id;
 
     private $company;
-    private $conversation;
+    private  $conversation;
 
     /**
      * @param $id
@@ -37,7 +37,7 @@ class Customer
     }
 
     public function getCompany($company_id){
-        if ($this->company=$company_id){
+        if ($this->company==$company_id){
             $this->company= Company::getCompany($this->company_id);
         }
         return  $this->company;
@@ -45,14 +45,16 @@ class Customer
 
     public function getCon($id=null){
 
-        if ($this->conversation=$id) {
-
-            $this->conversation = Conversation::getConversation($this->conversation);
+        if ($this->conversation==null){
+            //$this->conversation->conversation="no data";
+            $this->conversation = Conversation::getConversation($this->id);
         }
+//        if ($this->conversation==$id) {
+//
+//            $this->conversation = Conversation::getConversation($this->conversation);
+//        }
 
-        if ($this->coversation=null){
-            $this->conversation->conversation="no data";
-        }
+
 
 //        else {$this->conversation="no data";}
 ////        {
